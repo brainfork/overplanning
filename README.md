@@ -4,5 +4,5 @@ Project built as part of ["Hack Your Life" - Intro to Hardware Hacking](https://
 
 ### Who do I talk to? ###
 
-* [Kaleb J. Barker](Link URL) (code developer)
+* [Kaleb J. Barker](https://bitbucket.org/brainfork/) (code developer)
 * Bernoel Dela Vega (build engineer)
