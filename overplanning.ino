@@ -3,6 +3,16 @@
 Servo clawServo;
 Servo armServo;
 
+// Set claw variables
+int clawMax = 108;
+int clawMin = 80;
+int clawSpeed = 60;
+
+// Set arm variables
+int armMax = 180;
+int armMin = 60;
+int armSpeed = 30;
+
 // Declare cmdString
 String cmdString;
 
@@ -16,8 +26,11 @@ void setup() {
   armServo.attach(6);
 
   // Set inital servo positions
-  openClaw();
-  armServo.write(6);
+  clawServo.write(clawMax);
+  armServo.write(armMin);
+
+  // Print initial message
+  Serial.println( "Arduino Overplanning ready" );
 }
 
 // Proccess code
@@ -54,6 +67,18 @@ void loop() {
         Serial.println( "Moving armServo " + action + " degrees" );
         armServo.write( action.toInt() );
       }
+    } else if ( node == "op" ) {
+      if ( action == "demo" ) {
+        raiseArm();
+        closeClaw();
+        openClaw();
+        closeClaw();
+        openClaw();
+        openClaw();
+      } else if ( action == "off" ) {
+        openClaw();
+        lowerArm();
+      }
     }
 
     cmdString="";
@@ -79,29 +104,35 @@ String getValue( String data, char separator, int index ) {
 // Set clawServo to open position
 void openClaw() {
     Serial.println( "Open clawServo" );
-    clawServo.write( 108 );
+    for(int x = clawMin; x <= clawMax; x = x + 2){
+      clawServo.write( x );
+      delay(clawSpeed);
+    }
 }
 
 // Set clawServo to close position
 void closeClaw() {
     Serial.println( "Close clawServo" );
-    clawServo.write( 80 );
+    for(int x = clawMax; x >= clawMin; x = x - 2){
+      clawServo.write( x );
+      delay(clawSpeed);
+    }
 }
 
 // Set armServo to up position
 void raiseArm() {
     Serial.println( "Raise armServo" );
-    for(int x = 6; x < 186; x = x + 6){
+    for(int x = armMin; x <= armMax; x = x + 2){
       armServo.write( x );
-      delay(60);
+      delay(armSpeed);
     }
 }
 
 // Set armServo to down position
 void lowerArm() {
     Serial.println( "Lower armServo" );
-    for(int x = 180; x > 0; x = x - 6){
+    for(int x = armMax; x >= armMin; x = x - 2){
       armServo.write( x );
-      delay(60);
+      delay(armSpeed);
     }
 }
