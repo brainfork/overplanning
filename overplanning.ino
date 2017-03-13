@@ -10,7 +10,7 @@ int clawSpeed = 60;
 
 // Set arm variables
 int armMax = 180;
-int armMin = 60;
+int armMin = 66;
 int armSpeed = 30;
 
 // Declare cmdString
@@ -70,10 +70,9 @@ void loop() {
     } else if ( node == "op" ) {
       if ( action == "demo" ) {
         raiseArm();
-        closeClaw();
+        openClaw();
         openClaw();
         closeClaw();
-        openClaw();
         openClaw();
       } else if ( action == "off" ) {
         openClaw();
