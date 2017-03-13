@@ -59,24 +59,24 @@ void loop() {
         clawServo.write( action.toInt() );
       }
     } else if ( node == "arm" ) {
-      if ( action == "raise" ) {
-        raiseArm();
-      } else if ( action == "lower" ) {
-        lowerArm();
+      if ( action == "up" ) {
+        upArm();
+      } else if ( action == "down" ) {
+        downArm();
       } else {
         Serial.println( "Moving armServo " + action + " degrees" );
         armServo.write( action.toInt() );
       }
     } else if ( node == "op" ) {
       if ( action == "demo" ) {
-        raiseArm();
+        upArm();
         openClaw();
         openClaw();
         closeClaw();
         openClaw();
       } else if ( action == "off" ) {
         openClaw();
-        lowerArm();
+        downArm();
       }
     }
 
@@ -119,8 +119,8 @@ void closeClaw() {
 }
 
 // Set armServo to up position
-void raiseArm() {
-    Serial.println( "Raise armServo" );
+void upArm() {
+    Serial.println( "up armServo" );
     for(int x = armMin; x <= armMax; x = x + 2){
       armServo.write( x );
       delay(armSpeed);
@@ -128,8 +128,8 @@ void raiseArm() {
 }
 
 // Set armServo to down position
-void lowerArm() {
-    Serial.println( "Lower armServo" );
+void downArm() {
+    Serial.println( "down armServo" );
     for(int x = armMax; x >= armMin; x = x - 2){
       armServo.write( x );
       delay(armSpeed);
